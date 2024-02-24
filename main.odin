@@ -6,11 +6,8 @@ import "loki"
 
 main :: proc()
 {
-    // Window parameters
-    screenWidth  :: 800
-    screenHeight :: 450
 
-    engine := loki.initEngine(screenWidth, screenHeight, "Loki")
+    engine := loki.initEngine(loki.screenWidth, loki.screenHeight, "Loki")
 
     player := loki.createPlayer({100,100})
 
