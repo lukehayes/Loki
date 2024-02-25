@@ -2,17 +2,11 @@ package loki
 
 import rl "vendor:raylib"
 import "core:math"
+import "entity"
 
 
 Player :: struct {
-
-    position: rl.Vector2,
-    velocity: rl.Vector2,
-    color:    rl.Color,
-    acceleration: f32,
-    friction:     f32,
-    max_speed:    f32,
-    scale:        f32,
+	using entity : entity.Entity,
 } 
 
 /* 
@@ -83,6 +77,10 @@ updatePlayer :: proc( player: ^Player, delta:f32)
 Draw the player.
 */
 drawPlayer :: proc( player: Player ) {
+
+	rl.BeginDrawing()
+	rl.ClearBackground(rl.BLACK)
+
 	rl.DrawRectangle(
 		i32(player.position.x),
 		i32(player.position.y),
@@ -90,4 +88,6 @@ drawPlayer :: proc( player: Player ) {
 		i32(player.scale),
 		player.color,
 	)
+
+	rl.EndDrawing()
 }
