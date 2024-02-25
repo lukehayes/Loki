@@ -9,6 +9,14 @@ EntityBatch :: struct
 }
 
 /**
+Add an entity to an EntityBatch instance.
+*/
+batchAdd :: proc(batch: ^EntityBatch, entity: entity.Entity)
+{
+	append(&batch.entities, entity)
+}
+
+/**
 Draw all of the entities stored inside the batch.
 */
 drawBatch :: proc(batch: ^EntityBatch)
