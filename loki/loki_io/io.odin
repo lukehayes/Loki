@@ -18,31 +18,36 @@ LokiIOError :: union {
 /*
 Simple helper functions IO functions
 */
+readGameSettings :: proc(file : string) -> (data: []u8 , succ: bool)
+{
+	data = os.read_entire_file_from_filename(file) or_return
+	return
+}
 
 /**
 Get the game settings from the data/game.json file and return a JSON Object.
 */
 getGameSettings :: proc(file: string) -> (json.Object)
 {
-	data, ok := os.read_entire_file_from_filename(file)
+	data, ok := readGameSettings(file)
 
 	if !ok
 	{
-		fmt.println("Failed to load file...")
-	}
-
+		fmt.println(" ")
+		fmt.println("Failed to load file...", file)
+		fmt.println(" ")
+	} 
+	
 	json_data, err := json.parse(data)
 
-	if err != .None {
+	if err != .None
+	{
 		fmt.eprintln("Failed to parse the json file.")
 		fmt.eprintln("Error:", err)
-		//return
+		return nil
 	}
 
-	defer json.destroy_value(json_data)
-
 	return json_data.(json.Object)
-
 }
 
 
