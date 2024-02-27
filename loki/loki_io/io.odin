@@ -5,6 +5,16 @@ import "core:strings"
 import "core:os"
 import "core:fmt"
 
+FileIOError :: struct {
+	filename: string,
+	position: int,
+}
+
+LokiIOError :: union {
+	json.Error,
+	FileIOError,
+}
+
 /*
 Simple helper functions IO functions
 */
