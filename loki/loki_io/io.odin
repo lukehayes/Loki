@@ -9,27 +9,30 @@ import "core:fmt"
 Simple helper functions IO functions
 */
 
-getData :: proc(file: string)
+/**
+Get the game settings from the data/game.json file and return a JSON Object.
+*/
+getGameSettings :: proc(file: string) -> (json.Object)
 {
-	data, ok := os.read_entire_file_from_filename(file);
+	data, ok := os.read_entire_file_from_filename(file)
 
 	if !ok
 	{
 		fmt.println("Failed to load file...")
-		return
 	}
 
 	json_data, err := json.parse(data)
 
-	fmt.println(json_data)
-
-	//if err != .None {
-		//fmt.eprintln("Failed to parse the json file.")
-		//fmt.eprintln("Error:", err)
+	if err != .None {
+		fmt.eprintln("Failed to parse the json file.")
+		fmt.eprintln("Error:", err)
 		//return
-	//}
+	}
 
 	defer json.destroy_value(json_data)
+
+	return json_data.(json.Object)
+
 }
 
 
@@ -37,6 +40,7 @@ example :: proc()
 {
 	// Load in your json file!
 	data, ok := os.read_entire_file_from_filename("game_settings.json")
+
 	if !ok {
 		fmt.eprintln("Failed to load the file!")
 		return
