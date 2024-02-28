@@ -10,17 +10,16 @@ Engine :: struct
 }
 
 /* Create an engine struct and set engine/raylib defaults. */
-initEngine :: proc( width, height : f64, title: string) -> Engine
+initEngine :: proc( width, height : f64, title: string, fps: i32 = 60) -> Engine
 {
 
     window_titie : cstring = strings.clone_to_cstring(title)
 
     rl.InitWindow(i32(width), i32(height), window_titie)
-    rl.SetTargetFPS(60)
+    rl.SetTargetFPS(fps)
 
     rl.SetTraceLogLevel(rl.TraceLogLevel.INFO)
     rl.InitAudioDevice()
-    rl.SetTargetFPS(60)
 
     rl.SetExitKey(rl.KeyboardKey.SPACE)
     rl.SetExitKey(rl.KeyboardKey.ESCAPE)
