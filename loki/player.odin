@@ -3,10 +3,12 @@ package loki
 import rl "vendor:raylib"
 import "core:math"
 import "entity"
+import col "collision"
 
 
 Player :: struct {
 	using entity : entity.Entity,
+	collision : col.CollisionRect
 } 
 
 /* 
@@ -18,12 +20,21 @@ createPlayer :: proc( position: rl.Vector2 ) -> Player
 
 	player.position = position
 	player.velocity = rl.Vector2{0,0}
-	player.scale = 20.0
+	player.scale = 120.0
 	player.color = rl.WHITE
 
 	player.acceleration = 0.1
 	player.friction = 0.015
 	player.max_speed = 450.0
+
+	rect := rl.Rectangle { 
+		player.position.x, 
+		player.position.y, 
+		player.scale, 
+		player.scale, 
+	}
+
+	player.collision = col.CollisionRect { rect, rl.PINK }
 
 	return player
 }
@@ -78,9 +89,6 @@ Draw the player.
 */
 drawPlayer :: proc( player: Player ) {
 
-	rl.BeginDrawing()
-	rl.ClearBackground(rl.BLACK)
-
 	rl.DrawRectangle(
 		i32(player.position.x),
 		i32(player.position.y),
@@ -88,6 +96,18 @@ drawPlayer :: proc( player: Player ) {
 		i32(player.scale),
 		player.color,
 	)
+}
 
-	rl.EndDrawing()
+drawCollisionRect :: proc( player: ^Player ) {
+
+	player.collision.rect.x = player.position.x
+	player.collision.rect.y = player.position.y
+
+	rl.DrawRectangle(
+		i32(player.collision.rect.x),
+		i32(player.collision.rect.y),
+		i32(player.collision.rect.width),
+		i32(player.collision.rect.height),
+		player.collision.color,
+	)
 }
