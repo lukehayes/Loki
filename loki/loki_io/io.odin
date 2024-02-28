@@ -35,9 +35,9 @@ read_file :: proc(file: string) -> string
 /*
 Simple helper functions IO functions
 */
-read_game_settings :: proc(file : string) -> (data: []u8 , succ: bool)
+read_game_settings :: proc(file : string) -> (data: string, ok : bool)
 {
-	data = os.read_entire_file_from_filename(strings.concatenate({"../loki/data/", file})) or_return
+	data = read_file(strings.concatenate({"../loki/data/", file}))
 	return
 }
 
@@ -46,7 +46,14 @@ Get the game settings from the data/game.json file and return a JSON Object.
 */
 get_game_settings :: proc(file: string) -> (json.Object)
 {
-	data, ok := read_game_settings(file)
+	// Custom read file procures mess up the json file. Fix later.
+	data, ok := os.read_entire_file_from_filename(strings.concatenate({
+		"../loki/data/",
+		"game.json",
+	}))
+
+	//data, ok := read_game_settings(file)
+	data_arr : []u8 = transmute([]u8)data
 
 	if !ok
 	{
@@ -55,7 +62,7 @@ get_game_settings :: proc(file: string) -> (json.Object)
 		fmt.println(" ")
 	} 
 	
-	json_data, err := json.parse(data)
+	json_data, err := json.parse(data_arr)
 
 	if err != .None
 	{
