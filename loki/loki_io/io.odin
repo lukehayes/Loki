@@ -16,6 +16,23 @@ LokiIOError :: union {
 }
 
 /*
+General read file helper.
+*/
+read_file :: proc(file: string) -> string
+{
+	data, ok := os.read_entire_file_from_filename(file)
+
+	if !ok
+	{
+		fmt.println("Failed to read file: ", file)
+	}
+
+	defer delete(data, context.allocator)
+
+	return string(data)
+}
+
+/*
 Simple helper functions IO functions
 */
 readGameSettings :: proc(file : string) -> (data: []u8 , succ: bool)
