@@ -1,6 +1,7 @@
 package loki
 
 import rl "vendor:raylib"
+import "core:strings"
 
 
 Engine :: struct
@@ -9,9 +10,12 @@ Engine :: struct
 }
 
 /* Create an engine struct and set engine/raylib defaults. */
-initEngine :: proc( width:i32, height:i32, title:cstring ) -> Engine
+initEngine :: proc( width, height : f64, title: string) -> Engine
 {
-    rl.InitWindow(width, height, title)
+
+    window_titie : cstring = strings.clone_to_cstring(title)
+
+    rl.InitWindow(i32(width), i32(height), window_titie)
     rl.SetTargetFPS(60)
 
     rl.SetTraceLogLevel(rl.TraceLogLevel.INFO)
