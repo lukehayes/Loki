@@ -37,7 +37,7 @@ Simple helper functions IO functions
 */
 readGameSettings :: proc(file : string) -> (data: []u8 , succ: bool)
 {
-	data = os.read_entire_file_from_filename(file) or_return
+	data = os.read_entire_file_from_filename(strings.concatenate({"../loki/data/", file})) or_return
 	return
 }
 
