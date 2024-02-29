@@ -21,8 +21,8 @@ initEngine :: proc( width, height : f64, title: string, fps: i32 = 60) -> Engine
     rl.SetTraceLogLevel(rl.TraceLogLevel.INFO)
     rl.InitAudioDevice()
 
-    rl.SetExitKey(rl.KeyboardKey.SPACE)
     rl.SetExitKey(rl.KeyboardKey.ESCAPE)
+    rl.SetExitKey(rl.KeyboardKey.SPACE)
 
     engine : Engine = {0}
     engine.delta = 0.0
