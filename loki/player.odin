@@ -42,8 +42,9 @@ create_player :: proc( position: rl.Vector2 ) -> Player
 /* 
 Update the next player frame.
 */
-update_player :: proc( player: ^Player, delta:f32)
+update_player :: proc( player: ^entity.PhysicsEntity, delta:f32)
 {
+
 	if(rl.IsKeyDown(rl.KeyboardKey.W))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, -player.max_speed, player.acceleration)
