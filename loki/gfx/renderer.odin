@@ -19,10 +19,10 @@ batchAdd :: proc(batch: ^EntityBatch, entity: entity.Entity)
 /**
 Draw all of the entities stored inside the batch.
 */
-drawBatch :: proc(batch: ^EntityBatch)
+drawBatch :: proc(batch: ^EntityBatch, color: rl.Color)
 {
-	rl.BeginDrawing()
-	rl.ClearBackground(rl.BLACK)
+	
+	begin_draw(color)
 
 	for entity in batch.entities
 	{
@@ -34,16 +34,17 @@ drawBatch :: proc(batch: ^EntityBatch)
 			entity.color,
 		)
 	}
-	rl.EndDrawing()
+
+	end_draw()
 }
+
 
 /**
 Draw a single entity.
 */
 draw :: proc(entity: entity.Entity)
 {
-	rl.BeginDrawing()
-	rl.ClearBackground(rl.BLACK)
+
 
 	rl.DrawRectangle(
 		i32(entity.position.x),
@@ -53,6 +54,21 @@ draw :: proc(entity: entity.Entity)
 		entity.color,
 	)
 
-	rl.EndDrawing()
 }
 
+/**
+Tell the renderer to get ready!
+*/
+begin_draw :: proc(color: rl.Color = rl.BLACK)
+{
+	rl.BeginDrawing()
+	rl.ClearBackground(color)
+}
+
+/**
+Tell the renderer we have finished for this frame.
+*/
+end_draw :: proc()
+{
+	rl.EndDrawing()
+}
