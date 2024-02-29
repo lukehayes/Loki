@@ -16,3 +16,14 @@ Entity :: struct
 updateEntity :: proc(entity: Entity, delta: f32)
 {
 }
+
+draw_entity :: proc(entity: Entity) {
+
+	rl.DrawRectangle(
+		i32(entity.position.x),
+		i32(entity.position.y),
+		i32(entity.scale),
+		i32(entity.scale),
+		entity.color,
+	)
+}
