@@ -20,7 +20,7 @@ createPlayer :: proc( position: rl.Vector2 ) -> Player
 
 	player.position = position
 	player.velocity = rl.Vector2{0,0}
-	player.scale = 120.0
+	player.scale = 20.0
 	player.color = rl.WHITE
 
 	player.acceleration = 0.1
