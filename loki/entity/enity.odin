@@ -2,15 +2,23 @@ package entity
 
 import rl "vendor:raylib"
 import "core:math/rand"
+import col "../collision"
 
 Entity :: struct  {
-    position: rl.Vector2,
-    velocity: rl.Vector2,
-    color:    rl.Color,
-    acceleration: f32,
-    friction:     f32,
-    max_speed:    f32,
-    scale:        f32,
+
+	using entity_base: EntityBase,
+}
+
+PhysicsEntity :: struct 
+{
+	using entity_base: EntityBase,
+
+	velocity     : rl.Vector2,
+	acceleration : f32,
+	friction     : f32,
+	max_speed    : f32,
+
+	collision : col.CollisionRect,
 }
 
 make_entity :: proc(pos: rl.Vector2, scale: f32 = 20, color: rl.Color = rl.RED) -> Entity {
