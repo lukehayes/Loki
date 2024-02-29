@@ -2,8 +2,7 @@ package entity
 
 import rl "vendor:raylib"
 
-Entity :: struct 
-{
+Entity :: struct  {
     position: rl.Vector2,
     velocity: rl.Vector2,
     color:    rl.Color,
@@ -11,6 +10,16 @@ Entity :: struct
     friction:     f32,
     max_speed:    f32,
     scale:        f32,
+}
+
+make_entity :: proc(pos: rl.Vector2, scale: f32 = 20, color: rl.Color = rl.RED) -> Entity {
+	e := Entity {}
+
+	e.position = pos
+	e.scale = scale
+	e.color = color
+
+	return e
 }
 
 updateEntity :: proc(entity: Entity, delta: f32)
