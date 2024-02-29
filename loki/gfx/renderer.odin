@@ -5,13 +5,13 @@ import rl "vendor:raylib"
 
 EntityBatch :: struct
 {
-	entities : [dynamic] entity.Entity
+	entities : [dynamic] entity.EntityBase
 }
 
 /**
 Add an entity to an EntityBatch instance.
 */
-batchAdd :: proc(batch: ^EntityBatch, entity: entity.Entity)
+batch_add :: proc(batch: ^EntityBatch, entity: entity.EntityBase)
 {
 	append(&batch.entities, entity)
 }
@@ -19,7 +19,7 @@ batchAdd :: proc(batch: ^EntityBatch, entity: entity.Entity)
 /**
 Draw all of the entities stored inside the batch.
 */
-drawBatch :: proc(batch: ^EntityBatch, color: rl.Color = rl.BLACK)
+draw_batch :: proc(batch: ^EntityBatch, color: rl.Color = rl.BLACK)
 {
 	begin_draw(color)
 

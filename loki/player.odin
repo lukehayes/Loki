@@ -2,22 +2,22 @@ package loki
 
 import rl "vendor:raylib"
 import "core:math"
+import "core:fmt"
 import "entity"
 import col "collision"
 
 
 Player :: struct {
-	using entity : entity.Entity,
-	collision : col.CollisionRect
+	using entity : entity.PhysicsEntity,
 } 
 
 /* 
 Creates a new player instance as position location.
 */
-createPlayer :: proc( position: rl.Vector2 ) -> Player
+create_player :: proc( position: rl.Vector2 ) -> Player
 {
-    player := Player{}
-
+	player := Player{}
+	
 	player.position = position
 	player.velocity = rl.Vector2{0,0}
 	player.scale = 20.0
@@ -42,7 +42,7 @@ createPlayer :: proc( position: rl.Vector2 ) -> Player
 /* 
 Update the next player frame.
 */
-updatePlayer :: proc( player: ^Player, delta:f32)
+update_player :: proc( player: ^Player, delta:f32)
 {
 	if(rl.IsKeyDown(rl.KeyboardKey.W))
 	{
@@ -87,8 +87,9 @@ updatePlayer :: proc( player: ^Player, delta:f32)
 /**
 Draw the player.
 */
-drawPlayer :: proc( player: Player ) {
+draw_player :: proc( player: Player ) {
 
+	fmt.println("Drawing")
 	rl.DrawRectangle(
 		i32(player.position.x),
 		i32(player.position.y),
@@ -98,7 +99,7 @@ drawPlayer :: proc( player: Player ) {
 	)
 }
 
-drawCollisionRect :: proc( player: ^Player ) {
+draw_collsion_rect :: proc( player: ^Player ) {
 
 	player.collision.rect.x = player.position.x
 	player.collision.rect.y = player.position.y
