@@ -50,7 +50,7 @@ updateEntity :: proc(entity: Entity, delta: f32)
 {
 }
 
-draw_entity :: proc(entity: Entity) {
+draw_entity :: proc(entity: EntityBase) {
 
 	rl.DrawRectangle(
 		i32(entity.position.x),
