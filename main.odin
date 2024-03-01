@@ -1,18 +1,13 @@
 package main
 
 import "core:fmt"
-import rl "vendor:raylib"
-import "loki"
-import "loki/gfx"
-
-import "loki/entity"
-import "base:runtime"
-import "base:builtin"
 import "core:strings"
 
-Mob :: struct {
-    using entity: entity.Entity
-}
+import rl "vendor:raylib"
+
+import "loki"
+import "loki/gfx"
+import "loki/entity"
 
 main :: proc()
 {
@@ -22,13 +17,7 @@ main :: proc()
  
     player := loki.create_player({100,100})
 
-    m := Mob {}
-    m.position = { 300,300 }
-    m.scale = 40
-    m.color = rl.PURPLE
-
     gfx.batch_add(&batch, &player)
-    gfx.batch_add(&batch, &m)
 
     for (!rl.WindowShouldClose())
     {
