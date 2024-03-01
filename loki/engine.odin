@@ -1,12 +1,27 @@
 package loki
 
 import rl "vendor:raylib"
+import "core:encoding/json"
 import "core:strings"
+
+import io "loki_io"
 
 
 Engine :: struct
 {
     delta: f32
+}
+
+/* Initialize the engine from JSON settings */
+initEngineJSON:: proc(fps: i32 = 60) -> Engine
+{
+    width  := io.get_game_settings("game.json")["window_width"].(json.Float)
+    height := io.get_game_settings("game.json")["window_height"].(json.Float)
+    title  := io.get_game_settings("game.json")["window_title"].(json.String)
+
+	engine := initEngine(width, height, title)
+
+    return engine
 }
 
 /* Create an engine struct and set engine/raylib defaults. */

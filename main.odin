@@ -1,7 +1,6 @@
 package main
 
 import "core:fmt"
-import "core:strings"
 
 import rl "vendor:raylib"
 
@@ -11,7 +10,7 @@ import "loki/entity"
 
 main :: proc()
 {
-    engine := loki.initEngine(loki.screenWidth, loki.screenHeight, "Loki")
+    engine := loki.initEngineJSON()
 
     batch := gfx.EntityBatch {}
  
