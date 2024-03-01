@@ -13,21 +13,20 @@ Engine :: struct
 }
 
 /* Initialize the engine from JSON settings */
-initEngineJSON:: proc(fps: i32 = 60) -> Engine
+init_engine_json:: proc(fps: i32 = 60) -> Engine
 {
     width  := io.get_game_settings("game.json")["window_width"].(json.Float)
     height := io.get_game_settings("game.json")["window_height"].(json.Float)
     title  := io.get_game_settings("game.json")["window_title"].(json.String)
 
-	engine := initEngine(width, height, title)
+	engine := init_engine(width, height, title)
 
     return engine
 }
 
 /* Create an engine struct and set engine/raylib defaults. */
-initEngine :: proc( width, height : f64, title: string, fps: i32 = 60) -> Engine
+init_engine :: proc( width, height : f64, title: string, fps: i32 = 60) -> Engine
 {
-
     window_titie : cstring = strings.clone_to_cstring(title)
 
     rl.InitWindow(i32(width), i32(height), window_titie)

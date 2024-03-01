@@ -10,7 +10,7 @@ import "loki/entity"
 
 main :: proc()
 {
-    engine := loki.initEngineJSON()
+    engine := loki.init_engine_json()
 
     batch := gfx.EntityBatch {}
  
