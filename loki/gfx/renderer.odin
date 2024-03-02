@@ -41,7 +41,7 @@ draw_batch :: proc(batch: ^EntityBatch, color: rl.Color = rl.BLACK)
 /**
 Draw a single entity.
 */
-draw :: proc(entity: entity.Entity)
+draw :: proc(entity: entity.EntityBase)
 {
 	rl.DrawRectangle(
 		i32(entity.position.x),
