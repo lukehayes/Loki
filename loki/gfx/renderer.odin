@@ -68,3 +68,8 @@ end_draw :: proc()
 {
 	rl.EndDrawing()
 }
+
+draw_line :: proc(start: rl.Vector2, end: rl.Vector2, color: rl.Color = rl.WHITE)
+{
+		rl.DrawLineV(start, end, color)
+}
