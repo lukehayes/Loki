@@ -1,0 +1,9 @@
+{
+  "type": "BASIC_MOB",
+  "health": 1,
+  "color": "RED",
+  "spawn_rate": 10,
+  "item_drops": {
+    "coin"
+  }
+}
