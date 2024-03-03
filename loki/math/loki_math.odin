@@ -33,3 +33,13 @@ vec2_direction :: proc( vec: rl.Vector2 ) -> rl.Vector2
     return dir
 }
 
+vec2_angle_between :: proc(start: rl.Vector2, end: rl.Vector2) -> f32
+{
+    return math.atan2(end.y - start.y, end.x - start.x)
+}
+
+vec2_angle_between_deg:: proc(start: rl.Vector2, end: rl.Vector2) -> f32
+{
+    return math.to_degrees(vec2_angle_between(start, end))
+}
+
