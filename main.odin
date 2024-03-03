@@ -1,6 +1,7 @@
 package main
 
 import "core:fmt"
+import "core:math/rand"
 
 import rl "vendor:raylib"
 
@@ -8,20 +9,23 @@ import "loki"
 import lokimath "loki/math"
 import gfx "loki/gfx"
 
+import "game"
+
 main :: proc()
 {
-    engine := loki.init_engine_json()
+    g := game.create_game()
 
     player := loki.create_player({300, 400})
-    player.scale = 5
 
-    loki.engine_batch_add(&engine, player)
+    game.add_entity(&g, &player)
 
     for (!rl.WindowShouldClose())
     {
-        engine.delta = rl.GetFrameTime()
+        game.update_game(&g)
 
-        loki.update_player(&player, engine.delta)
+        loki.update_player(&player, g.delta)
+
+        //game.draw(&g)
 
         gfx.begin_draw()
             gfx.draw(&player)
