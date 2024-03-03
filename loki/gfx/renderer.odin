@@ -73,3 +73,8 @@ draw_line :: proc(start: rl.Vector2, end: rl.Vector2, color: rl.Color = rl.WHITE
 {
 		rl.DrawLineV(start, end, color)
 }
+
+draw_pixel :: proc(x,y : i32, color : rl.Color = rl.WHITE)
+{
+	rl.DrawPixel(x,y,color)
+}
