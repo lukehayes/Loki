@@ -15,7 +15,12 @@ vec2_length :: proc(vec: rl.Vector2) -> f32 {
 
 vec2_normalize :: proc( vec: rl.Vector2 ) -> rl.Vector2 {
 
-    return linalg.normalize(vec)
+    mag := vec2_length(vec)
+
+    return {
+	vec.x / mag,
+	vec.y / mag,
+    }
 }
 
 vec2_direction :: proc( vec: rl.Vector2 ) -> rl.Vector2
