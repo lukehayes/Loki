@@ -19,7 +19,7 @@ batch_add :: proc(batch: ^EntityBatch, entity: entity.EntityBase)
 /**
 Draw all of the entities stored inside the batch.
 */
-draw_batch :: proc(batch: ^EntityBatch, color: rl.Color = rl.BLACK)
+batch_draw :: proc(batch: ^EntityBatch, color: rl.Color = rl.BLACK)
 {
 	begin_draw(color)
 

@@ -41,5 +41,5 @@ add_entity :: proc(game: ^Game, entity: entity.EntityBase)
 
 draw :: proc(game: ^Game)
 {
-    gfx.draw_batch(&game.engine.batch)
+    gfx.batch_draw(&game.engine.batch)
 }
