@@ -1,12 +1,8 @@
 package main
 
-import "core:fmt"
-import "core:math/rand"
-
 import rl "vendor:raylib"
 
 import "loki"
-import lokimath "loki/math"
 import gfx "loki/gfx"
 
 import "game"

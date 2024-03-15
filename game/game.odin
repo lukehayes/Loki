@@ -1,7 +1,6 @@
 package game
 
 import rl "vendor:raylib"
-import "core:fmt"
 
 import "../loki"
 import "../loki/entity"
