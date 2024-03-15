@@ -35,11 +35,10 @@ make_entities :: proc(count: int) -> [dynamic]Entity {
 
     entities := [dynamic]Entity{}
 
-    for i in 0..<count
+    for _ in 0..<count
     {
         x,y := rand.float32() * f32(800), rand.float32() * f32(600)
         e := make_entity({x,y})
-
 		append(&entities, e)
     }
 
