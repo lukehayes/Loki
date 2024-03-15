@@ -34,9 +34,9 @@ update_game :: proc(game: ^Game)
     game.my = f32(rl.GetMouseY())
 }
 
-add_entity :: proc(game: ^Game, entity: ^entity.EntityBase)
+add_entity :: proc(game: ^Game, entity: entity.EntityBase)
 {
-    append(&game.engine.batch.entities, entity^)
+    gfx.batch_add(&game.engine.batch, entity)
 }
 
 draw :: proc(game: ^Game)
