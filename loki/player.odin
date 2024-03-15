@@ -90,7 +90,8 @@ Draw the player.
 */
 draw_player :: proc( player: Player ) {
 
-	fmt.println("Drawing")
+	rl.BeginDrawing()
+	rl.ClearBackground(rl.BLACK)
 	rl.DrawRectangle(
 		i32(player.position.x),
 		i32(player.position.y),
@@ -98,6 +99,7 @@ draw_player :: proc( player: Player ) {
 		i32(player.scale),
 		player.color,
 	)
+	rl.EndDrawing()
 }
 
 draw_collsion_rect :: proc( player: ^Player ) {
