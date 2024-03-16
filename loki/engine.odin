@@ -47,7 +47,7 @@ init_engine :: proc( width, height : f64, title: string, fps: i32 = 60) -> Engin
 
 }
 
-engine_batch_add :: proc(engine: ^Engine, entity: entity.EntityBase)
+engine_batch_add :: proc(engine: ^Engine, entity: ^entity.EntityBase)
 {
     gfx.batch_add(&engine.batch, entity)
 }

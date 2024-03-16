@@ -5,13 +5,13 @@ import rl "vendor:raylib"
 
 EntityBatch :: struct
 {
-	entities : [dynamic] entity.EntityBase
+	entities : [dynamic] ^entity.EntityBase
 }
 
 /**
 Add an entity to an EntityBatch instance.
 */
-batch_add :: proc(batch: ^EntityBatch, entity: entity.EntityBase)
+batch_add :: proc(batch: ^EntityBatch, entity: ^entity.EntityBase)
 {
 	append(&batch.entities, entity)
 }
