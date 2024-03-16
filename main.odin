@@ -22,6 +22,16 @@ main :: proc()
     gfx.hex_to_rgb(0x00, 0x00, 0x00)
     gfx.hex_to_rgb(0x2A, 0x39, 0xC3)
 
+    colors := []rl.Color{
+        gfx.Col_1,
+        gfx.Col_2,
+        gfx.Col_3,
+        gfx.Col_4,
+        gfx.Col_5,
+        gfx.Col_6,
+        gfx.Col_7,
+    }
+
     for (!rl.WindowShouldClose())
     {
         game.update_game(&g)
@@ -46,12 +56,17 @@ main :: proc()
             }
 
             case .Paused: {
-                gfx.begin_draw(rl.BLUE)
-                    rl.DrawText("Paused", 400 - 16,300 - 16, 20, rl.WHITE)
+                //gfx.begin_draw(rl.BLUE)
+                    //rl.DrawText("Paused", 400 - 16,300 - 16, 20, rl.WHITE)
+                //gfx.end_draw()
+
+                gfx.begin_draw()
+                for x in 0..<7 {
+                    rl.DrawRectangle(10,i32(x) * 50, 300,60, colors[x])
+                }
                 gfx.end_draw()
             }
         }
-
 
 
     }
