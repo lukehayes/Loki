@@ -5,6 +5,7 @@ import "core:math"
 import "core:fmt"
 import "entity"
 import col "collision"
+import "gfx"
 
 
 Player :: struct {
@@ -21,7 +22,7 @@ create_player :: proc( position: rl.Vector2 ) -> Player
 	player.position = position
 	player.velocity = rl.Vector2{0,0}
 	player.scale = 20.0
-	player.color = rl.WHITE
+	player.color = gfx.Col_2
 
 	player.acceleration = 0.1
 	player.friction = 0.015
