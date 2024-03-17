@@ -6,7 +6,6 @@ import "loki"
 import "loki/gfx"
 import "core:fmt"
 
-GameState :: enum { Playing, Paused }
 
 main :: proc()
 {

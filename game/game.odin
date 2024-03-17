@@ -13,6 +13,11 @@ Game :: struct {
     delta: f32,
 }
 
+GameState :: enum {
+    Playing,
+    Paused,
+}
+
 create_game :: proc() -> Game
 {
     game := Game {}
