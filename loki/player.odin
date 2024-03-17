@@ -6,11 +6,20 @@ import "core:fmt"
 import "entity"
 import col "collision"
 import "gfx"
-
+import "../game/game"
 
 Player :: struct {
 	using entity : entity.PhysicsEntity,
+	state : PlayerState,
 } 
+
+PlayerState :: enum
+{
+	Idle,
+	Moving,
+	Slowdown,
+	Shooting,
+}
 
 /* 
 Creates a new player instance as position location.
@@ -18,6 +27,7 @@ Creates a new player instance as position location.
 create_player :: proc( position: rl.Vector2 ) -> Player
 {
 	player := Player{}
+
 	
 	player.position = position
 	player.velocity = rl.Vector2{0,0}
@@ -35,6 +45,8 @@ create_player :: proc( position: rl.Vector2 ) -> Player
 		player.scale, 
 	}
 
+	player.state = PlayerState.Idle
+
 	player.collision = col.CollisionRect { rect, rl.PINK }
 
 	return player
@@ -43,47 +55,71 @@ create_player :: proc( position: rl.Vector2 ) -> Player
 /* 
 Update the next player frame.
 */
-update_player :: proc( player: ^entity.PhysicsEntity, delta:f32)
+update_player :: proc( player: ^Player, delta:f32)
 {
+
+	fmt.println(game.any_key_pressed())
+
 
 	if(rl.IsKeyDown(rl.KeyboardKey.W))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, -player.max_speed, player.acceleration)
+		player.state = PlayerState.Moving
 
 	}else if(! rl.IsKeyDown(rl.KeyboardKey.W))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, 0, player.friction)
+		player.state = PlayerState.Idle
 	}
 
 	if(rl.IsKeyDown(rl.KeyboardKey.S))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, player.max_speed, player.acceleration)
+		player.state = PlayerState.Moving
 
 	}else if(!rl.IsKeyDown(rl.KeyboardKey.S))
 	{
-
 		player.velocity.y = math.lerp(player.velocity.y, 0, player.friction)
+		player.state = PlayerState.Idle
 	}
+
 	if(rl.IsKeyDown(rl.KeyboardKey.A))
 	{
 		player.velocity.x = math.lerp(player.velocity.x, -player.max_speed, player.acceleration)
+		player.state = PlayerState.Moving
 
 	}else if(! rl.IsKeyDown(rl.KeyboardKey.A))
 	{
 		player.velocity.x = math.lerp(player.velocity.x, 0, player.friction)
+		player.state = PlayerState.Idle
 	}
 
 	if(rl.IsKeyDown(rl.KeyboardKey.D))
 	{
 		player.velocity.x = math.lerp(player.velocity.x, player.max_speed, player.acceleration)
+		player.state = PlayerState.Moving
+
 	}else if(!rl.IsKeyDown(rl.KeyboardKey.D))
 	{
-
 		player.velocity.x = math.lerp(player.velocity.x, 0, player.friction)
+		player.state = PlayerState.Idle
 	}
 
 	player.position.x = player.position.x + player.velocity.x * delta
 	player.position.y = player.position.y + player.velocity.y * delta
+
+	#partial switch player.state {
+
+		case .Moving: {
+			player.color = gfx.Col_5
+		}
+
+		case .Idle: {
+			player.color = gfx.Col_2
+		}
+	}
+
+	fmt.println(player.state)
 }
 
 /**
@@ -116,3 +152,4 @@ draw_collsion_rect :: proc( player: ^Player ) {
 		player.collision.color,
 	)
 }
+
