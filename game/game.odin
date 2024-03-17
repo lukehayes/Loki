@@ -48,3 +48,14 @@ draw :: proc(game: ^Game, color: rl.Color = rl.BLACK)
 {
     gfx.batch_draw(&game.engine.batch, color)
 }
+
+any_key_pressed :: proc() -> bool
+{
+	any_key_down := 
+		rl.IsKeyDown(rl.KeyboardKey.W) ||
+		rl.IsKeyDown(rl.KeyboardKey.S) ||
+		rl.IsKeyDown(rl.KeyboardKey.A) ||
+		rl.IsKeyDown(rl.KeyboardKey.D)
+
+	return any_key_down
+}
