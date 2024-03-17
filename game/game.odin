@@ -44,7 +44,7 @@ add_entity :: proc(game: ^Game, entity: ^entity.EntityBase)
     gfx.batch_add(&game.engine.batch, entity)
 }
 
-draw :: proc(game: ^Game)
+draw :: proc(game: ^Game, color: rl.Color = rl.BLACK)
 {
-    gfx.batch_draw(&game.engine.batch)
+    gfx.batch_draw(&game.engine.batch, color)
 }
