@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+color_list = ARGV[0]
+
+if !color_list
+  puts "A list of hexadecimal colors need to be added..."
+  puts ""
+  puts "e.g"
+  puts "\t \'ruby color-convert.rb  \"#ffffff #000000\" \' "
+  puts ""
+  exit
+end
+
+color_list = color_list.split(" ")
+
 colors = [
   '#040026',
   '#004bc0',
@@ -36,8 +49,4 @@ def print_structs(colors)
     end
 end
 
-#convert_to_hex(colors)
-#print_structs(colors)
-
-puts ARGV.class
-
+print_structs color_list
