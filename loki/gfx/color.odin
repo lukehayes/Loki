@@ -13,22 +13,13 @@ DARK :: rl.Color { 31, 01, 75, 255 }
 //#58e1c3 ACCENT
 //#ffdaff HILIGHT
 
-//Col_1 :: rl.Color { 255, 255, 255, 255}
-//Col_2 :: rl.Color { 12, 230, 242, 255}
-//Col_3 :: rl.Color { 0, 152, 219, 255}
-//Col_4 :: rl.Color { 30, 87, 156, 255}
-//Col_5 :: rl.Color { 32, 53, 98, 255}
-//Col_6 :: rl.Color { 37, 36, 70, 255}
-//Col_7 :: rl.Color { 32, 21, 51, 255}
-
-
-Col_1 :: rl.Color { 4, 0, 38, 255}
-Col_2 :: rl.Color { 0, 75, 192, 255}
-Col_3 :: rl.Color { 0, 151, 236, 255}
-Col_4 :: rl.Color { 0, 243, 252, 255}
-Col_5 :: rl.Color { 255, 188, 255, 255}
-Col_6 :: rl.Color { 213, 105, 246, 255}
-Col_7 :: rl.Color { 108, 31, 211, 255}
+Col_1 :: rl.Color { 255, 255, 255, 255}
+Col_2 :: rl.Color { 12, 230, 242, 255}
+Col_3 :: rl.Color { 0, 152, 219, 255}
+Col_4 :: rl.Color { 30, 87, 156, 255}
+Col_5 :: rl.Color { 32, 53, 98, 255}
+Col_6 :: rl.Color { 37, 36, 70, 255}
+Col_7 :: rl.Color { 32, 21, 51, 255}
 
 
 
