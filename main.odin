@@ -66,12 +66,6 @@ main :: proc()
             state = game.GameState.Playing
         }
 
-        if(rl.IsKeyDown(rl.KeyboardKey.L))
-        {
-            fmt.println("Freeing All Memory...")
-
-        }
-
         switch state {
 
             case .Playing: {
