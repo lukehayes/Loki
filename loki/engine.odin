@@ -32,6 +32,8 @@ init_engine :: proc( width, height : f64, title: string, fps: i32 = 60) -> Engin
 {
     window_titie : cstring = strings.clone_to_cstring(title)
 
+    delete (window_titie)
+
     rl.InitWindow(i32(width), i32(height), window_titie)
     rl.SetTargetFPS(fps)
 

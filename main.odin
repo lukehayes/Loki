@@ -10,31 +10,39 @@ import "core:mem"
 
 main :: proc()
 {
+    // --------- Report memory leaks here with the tracking allocator.
 
-    // Report memory leaks here with the tracking allocator.
     tracking_allocator : mem.Tracking_Allocator
     mem.tracking_allocator_init(&tracking_allocator, context.allocator)
     context.allocator = mem.tracking_allocator(&tracking_allocator)
 
     report_memory_leaks :: proc(alctr: ^mem.Tracking_Allocator) -> bool
     {
-        leaks := false
+        memory_leak := false
 
         fmt.println("---------------")
         for key, val in alctr.allocation_map
         {
-            fmt.printf("%v: Memory Leak: %v bytes \n", val.location, val.size)
-            leaks = true
+            fmt.println("")
+            fmt.printf("*x*x*x*x* ==> %v: Memory Leak: %v bytes \n", val.location, val.size)
+            fmt.println("")
+            memory_leak = true
         }
-        fmt.println("---------------")
 
+        if !memory_leak {
+            fmt.println(" ")
+            fmt.println("No memory leaks found.")
+            fmt.println(" ")
+        }
+
+        fmt.println("---------------")
 
         mem.tracking_allocator_clear(alctr)
 
-        return leaks
+        return memory_leak
     }
 
-    // End memory reporting.
+    // --------- End memory reporting.
 
     g := game.create_game()
 
@@ -80,7 +88,6 @@ main :: proc()
 
 
     }
-
 
     delete(g.engine.batch.entities)
 

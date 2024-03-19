@@ -6,7 +6,6 @@ import "core:fmt"
 import "entity"
 import col "collision"
 import "gfx"
-import "../game/game"
 
 Player :: struct {
 	using entity : entity.PhysicsEntity,
@@ -58,7 +57,7 @@ Update the next player frame.
 update_player :: proc( player: ^Player, delta:f32)
 {
 
-	fmt.println(game.any_key_pressed())
+	//fmt.println(game.any_key_pressed())
 
 
 	if(rl.IsKeyDown(rl.KeyboardKey.W))
