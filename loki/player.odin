@@ -27,7 +27,6 @@ create_player :: proc( position: rl.Vector2 ) -> Player
 {
 	player := Player{}
 
-	
 	player.position = position
 	player.velocity = rl.Vector2{0,0}
 	player.scale = 20.0
@@ -56,69 +55,63 @@ Update the next player frame.
 */
 update_player :: proc( player: ^Player, delta:f32)
 {
-
-	//fmt.println(game.any_key_pressed())
-
-
 	if(rl.IsKeyDown(rl.KeyboardKey.W))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, -player.max_speed, player.acceleration)
-		player.state = PlayerState.Moving
 
 	}else if(! rl.IsKeyDown(rl.KeyboardKey.W))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, 0, player.friction)
-		player.state = PlayerState.Idle
 	}
 
 	if(rl.IsKeyDown(rl.KeyboardKey.S))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, player.max_speed, player.acceleration)
-		player.state = PlayerState.Moving
 
 	}else if(!rl.IsKeyDown(rl.KeyboardKey.S))
 	{
 		player.velocity.y = math.lerp(player.velocity.y, 0, player.friction)
-		player.state = PlayerState.Idle
 	}
 
 	if(rl.IsKeyDown(rl.KeyboardKey.A))
 	{
 		player.velocity.x = math.lerp(player.velocity.x, -player.max_speed, player.acceleration)
-		player.state = PlayerState.Moving
 
 	}else if(! rl.IsKeyDown(rl.KeyboardKey.A))
 	{
 		player.velocity.x = math.lerp(player.velocity.x, 0, player.friction)
-		player.state = PlayerState.Idle
 	}
 
 	if(rl.IsKeyDown(rl.KeyboardKey.D))
 	{
 		player.velocity.x = math.lerp(player.velocity.x, player.max_speed, player.acceleration)
-		player.state = PlayerState.Moving
 
 	}else if(!rl.IsKeyDown(rl.KeyboardKey.D))
 	{
 		player.velocity.x = math.lerp(player.velocity.x, 0, player.friction)
-		player.state = PlayerState.Idle
 	}
 
 	player.position.x = player.position.x + player.velocity.x * delta
 	player.position.y = player.position.y + player.velocity.y * delta
 
+	if math.abs(player.velocity.x) > 10 || math.abs(player.velocity.y) > 10
+	{
+		player.state = .Moving
+	}else 
+	{
+		player.state = .Idle
+	}
+
 	#partial switch player.state {
 
 		case .Moving: {
-			player.color = gfx.Col_5
+			player.color = rl.RED
 		}
 
 		case .Idle: {
-			player.color = gfx.Col_2
+			player.color = rl.GREEN
 		}
 	}
-
-	fmt.println(player.state)
 }
 
 /**
