@@ -6,7 +6,7 @@ import "loki"
 import "loki/gfx"
 import "core:fmt"
 import "core:mem"
-
+import "core:math/noise"
 
 main :: proc()
 {
@@ -52,6 +52,21 @@ main :: proc()
 
     state := game.GameState.Playing
 
+    seed : i64 = 123123123132
+
+    points := make([dynamic]f64, 10,10)
+
+    for x in 0..<10
+    {
+        for y in 0..<10 
+        {
+            coords : [2]f64 = { f64(x), f64(y) }
+            rn := noise.noise_2d(seed, coords)
+            fmt.println(rn, coords)
+        }
+    }
+
+
     for (!rl.WindowShouldClose())
     {
         game.update_game(&g)
@@ -79,11 +94,10 @@ main :: proc()
                 gfx.end_draw()
             }
         }
-
-
     }
 
     delete(g.engine.batch.entities)
+    delete(points)
 
     rl.CloseWindow()
 
