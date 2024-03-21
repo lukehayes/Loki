@@ -8,6 +8,15 @@ import "core:fmt"
 import "core:mem"
 import "core:math/noise"
 
+Block :: struct 
+{
+    position: rl.Vector2,
+    scale:        f32,
+    color:    rl.Color,
+    rn: f32
+}
+
+
 main :: proc()
 {
     // --------- Report memory leaks here with the tracking allocator.
@@ -52,17 +61,42 @@ main :: proc()
 
     state := game.GameState.Playing
 
-    seed : i64 = 123123123132
+    seed : i64 = 4
 
-    points := make([dynamic]f64, 10,10)
+    blocks := make([dynamic]Block, 10,10)
 
-    for x in 0..<10
+    for x in 0..<100
     {
-        for y in 0..<10 
+        for y in 0..<100
         {
             coords : [2]f64 = { f64(x), f64(y) }
             rn := noise.noise_2d(seed, coords)
-            fmt.println(rn, coords)
+            //fmt.println(rn, coords)
+            xx : f32 = f32(x) * 10
+            yy : f32 = f32(y) * 10
+            color := rl.WHITE
+
+            if rn > 0.61
+            {
+                color = rl.GREEN
+            }else if rn > 0.3 && rn < 0.6
+            {
+
+                color = rl.YELLOW
+            }
+            else 
+            {
+                color = rl.BLUE
+            }
+
+            b := Block {
+                {xx, yy},
+                10,
+                color,
+                rn,
+            }
+
+            append(&blocks, b)
         }
     }
 
@@ -85,7 +119,21 @@ main :: proc()
 
             case .Playing: {
                 loki.update_player(&player, g.delta)
-                game.draw(&g, gfx.Col_7)
+                //game.draw(&g, gfx.Col_7)
+
+                gfx.begin_draw()
+                for block in blocks
+                {
+                    rl.DrawRectangle(
+                        i32(block.position.x),
+                        i32(block.position.y),
+                        i32(block.scale),
+                        i32(block.scale),
+                        block.color,
+                    )
+                }
+            
+                gfx.end_draw()
             }
 
             case .Paused: {
@@ -97,7 +145,7 @@ main :: proc()
     }
 
     delete(g.engine.batch.entities)
-    delete(points)
+    delete(blocks)
 
     rl.CloseWindow()
 
