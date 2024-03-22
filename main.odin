@@ -11,9 +11,9 @@ import "core:math/noise"
 Block :: struct 
 {
     position: rl.Vector2,
-    scale:        f32,
     color:    rl.Color,
-    rn: f32
+    scale:    f32,
+    rn:       f32,
 }
 
 
@@ -62,23 +62,25 @@ main :: proc()
     state := game.GameState.Playing
 
     seed : i64 = 4
+    grid_max := 20
+    tile_size : f32 = 16
 
     blocks := make([dynamic]Block, 10,10)
 
-    for x in 0..<100
+    for x in 0..<grid_max
     {
-        for y in 0..<100
+        for y in 0..<grid_max
         {
             coords : [2]f64 = { f64(x), f64(y) }
             rn := noise.noise_2d(seed, coords)
             //fmt.println(rn, coords)
-            xx : f32 = f32(x) * 10
-            yy : f32 = f32(y) * 10
+            xx : f32 = f32(x)
+            yy : f32 = f32(y)
             color := rl.WHITE
 
             if rn > 0.61
             {
-                color = rl.GREEN
+                color = rl.Color { 0,255,200, 255 }
             }else if rn > 0.3 && rn < 0.6
             {
 
@@ -90,9 +92,9 @@ main :: proc()
             }
 
             b := Block {
-                {xx, yy},
-                10,
+                {xx * tile_size, yy * tile_size},
                 color,
+                tile_size,
                 rn,
             }
 
