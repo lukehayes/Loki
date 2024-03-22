@@ -7,6 +7,8 @@ import "loki/gfx"
 import "core:fmt"
 import "core:mem"
 
+import "loki/tilemap"
+
 
 main :: proc()
 {
@@ -52,6 +54,9 @@ main :: proc()
 
     state := game.GameState.Playing
 
+    //json := tilemap.read_map_json("map.tmj")
+    tilemap.parse_map("map.tmj")
+
     for (!rl.WindowShouldClose())
     {
         game.update_game(&g)
@@ -70,7 +75,10 @@ main :: proc()
 
             case .Playing: {
                 loki.update_player(&player, g.delta)
-                game.draw(&g, gfx.Col_7)
+
+                gfx.begin_draw()
+                gfx.end_draw()
+                //game.draw(&g, gfx.Col_7)
             }
 
             case .Paused: {
