@@ -55,32 +55,8 @@ main :: proc()
     for (!rl.WindowShouldClose())
     {
         game.update_game(&g)
-
-        if(rl.IsKeyDown(rl.KeyboardKey.Z))
-        {
-            state = game.GameState.Paused
-        }
-
-        if(rl.IsKeyDown(rl.KeyboardKey.P))
-        {
-            state = game.GameState.Playing
-        }
-
-        switch state {
-
-            case .Playing: {
-                loki.update_player(&player, g.delta)
-                game.draw(&g, gfx.Col_7)
-            }
-
-            case .Paused: {
-                gfx.begin_draw(gfx.Col_7)
-                    rl.DrawText("Paused", 400 - 32,300 - 16, 20, gfx.Col_2)
-                gfx.end_draw()
-            }
-        }
-
-
+        loki.update_player(&player, g.delta)
+        game.draw(&g, gfx.Col_7)
     }
 
     delete(g.engine.batch.entities)
