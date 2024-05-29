@@ -55,25 +55,36 @@ main :: proc()
 
     render_texture := rl.LoadRenderTexture(320,180)
 
+    gameScreenWidth  : i32 = 800
+    gameScreenHeight : i32 = 600
+
+    bg_texture := rl.LoadTexture("assets/debug-bg.png");
+
+    c := 0;
+
     for (!rl.WindowShouldClose())
     {
         game.update_game(&g)
         loki.update_player(&player, g.delta)
 
-        //game.draw(&g, gfx.Col_7)
-
-
         rl.BeginTextureMode(render_texture)
+            rl.DrawTexture(bg_texture, 0,0, rl.WHITE)
             rl.DrawText("Render Texture Here", 10,10, 10, rl.WHITE)
         rl.EndTextureMode()
 
         rl.BeginDrawing()
+            
+            newWidth  := rl.GetScreenWidth() / gameScreenWidth
+            newHeight := rl.GetScreenHeight() / gameScreenHeight
 
-            s := rl.Rectangle{0.0,0.0,100.0,100.0}
-            d := rl.Rectangle{0.0,0.0,100.0,100.0}
+            s := rl.Rectangle{0.0,0.0,320.0, -180.0}
+            d := rl.Rectangle{0.0,0.0, cast(f32)newWidth, cast(f32)newHeight}
 
-            rl.ClearBackground(rl.BLUE)
-            rl.DrawTexturePro(render_texture.texture, s,d)
+            fmt.println(newWidth, newHeight)
+
+            rl.ClearBackground(rl.BLACK)
+
+            rl.DrawTexturePro(render_texture.texture, s,d, {0,0}, 0, rl.WHITE)
         rl.EndDrawing()
 
     }
@@ -81,6 +92,7 @@ main :: proc()
     delete(g.engine.batch.entities)
 
     rl.UnloadRenderTexture(render_texture)
+    rl.UnloadTexture(bg_texture)
 
     rl.CloseWindow()
 
