@@ -5,7 +5,8 @@ import rl "vendor:raylib"
 
 EntityBatch :: struct
 {
-	entities : [dynamic] ^entity.EntityBase
+	entities : [dynamic] ^entity.EntityBase,
+	render_texture : rl.RenderTexture2D
 }
 
 /**
@@ -22,6 +23,8 @@ Draw all of the entities stored inside the batch.
 batch_draw :: proc(batch: ^EntityBatch, color: rl.Color = rl.BLACK)
 {
 	begin_draw(color)
+
+
 
 	for entity in batch.entities
 	{
@@ -52,6 +55,23 @@ draw :: proc(entity: entity.EntityBase)
 	)
 }
 
+
+draw_to_fb :: proc()
+{
+
+	render_texture_source := rl.Rectangle{0.0,0.0, loki.render_texture_width, -loki.render_texture_height}
+	render_texture_dest := rl.Rectangle{0.0,0.0, loki.screenHeight, loki.screenHeight}
+
+	rl.DrawTexturePro(
+		batch.render_texture.texture,
+		render_texture_source,
+		render_texture_dest,
+		{0,0},
+		0,
+		rl.WHITE)
+}
+
+
 /**
 Tell the renderer to get ready!
 */
@@ -60,6 +80,34 @@ begin_draw :: proc(color: rl.Color = rl.BLACK)
 	rl.BeginDrawing()
 	rl.ClearBackground(color)
 }
+
+/**
+Tell the render texture renderer to get ready!
+*/
+begin_draw_fb :: proc(batch: ^EntityBatch, color: rl.Color = rl.BLACK)
+{
+	rl.BeginTextureMode(batch.render_texture)
+	rl.ClearBackground(color)
+}
+
+/**
+Draw to the render texture.
+*/
+draw_fb :: proc()
+{
+	rl.DrawRectangle(10,10,10,10, rl.GREEN)
+	rl.DrawRectangle(40,20,100,10, rl.RED)
+	rl.DrawRectangle(200,120,10,100, rl.BLUE)
+}
+
+/**
+End drawing to the render texture.
+*/
+end_draw_fb :: proc()
+{
+	rl.EndTextureMode()
+}
+
 
 /**
 Tell the renderer we have finished for this frame.

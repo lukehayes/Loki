@@ -22,7 +22,7 @@ create_game :: proc() -> Game
 {
     game := Game {}
 
-    game.engine = loki.init_engine(320,180, "ABC")
+    game.engine = loki.init_engine(loki.screenWidth, loki.screenHeight, "ABC")
 
     game.mx = f32(rl.GetMouseX())
     game.my = f32(rl.GetMouseX())

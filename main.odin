@@ -7,7 +7,6 @@ import "loki/gfx"
 import "core:fmt"
 import "core:mem"
 
-
 main :: proc()
 {
     // --------- Report memory leaks here with the tracking allocator.
@@ -53,45 +52,34 @@ main :: proc()
 
     game.add_entity(&g, &player)
 
-    render_texture := rl.LoadRenderTexture(320,180)
-
-    gameScreenWidth  : i32 = 800
-    gameScreenHeight : i32 = 600
-
     bg_texture := rl.LoadTexture("assets/debug-bg.png");
 
-    c := 0;
+    batch : gfx.EntityBatch
+
+    batch.render_texture  = rl.LoadRenderTexture(
+        loki.render_texture_width,
+        loki.render_texture_height)
+
 
     for (!rl.WindowShouldClose())
     {
         game.update_game(&g)
         loki.update_player(&player, g.delta)
 
-        rl.BeginTextureMode(render_texture)
-            rl.DrawTexture(bg_texture, 0,0, rl.WHITE)
-            rl.DrawText("Render Texture Here", 10,10, 10, rl.WHITE)
-        rl.EndTextureMode()
+        gfx.begin_draw_fb(&batch)
+            gfx.draw_fb()
+        gfx.end_draw_fb()
 
         rl.BeginDrawing()
-            
-            newWidth  := rl.GetScreenWidth() / gameScreenWidth
-            newHeight := rl.GetScreenHeight() / gameScreenHeight
-
-            s := rl.Rectangle{0.0,0.0,320.0, -180.0}
-            d := rl.Rectangle{0.0,0.0, cast(f32)newWidth, cast(f32)newHeight}
-
-            fmt.println(newWidth, newHeight)
-
             rl.ClearBackground(rl.BLACK)
 
-            rl.DrawTexturePro(render_texture.texture, s,d, {0,0}, 0, rl.WHITE)
         rl.EndDrawing()
 
     }
 
     delete(g.engine.batch.entities)
 
-    rl.UnloadRenderTexture(render_texture)
+    rl.UnloadRenderTexture(batch.render_texture)
     rl.UnloadTexture(bg_texture)
 
     rl.CloseWindow()
