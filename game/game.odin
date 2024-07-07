@@ -22,7 +22,9 @@ create_game :: proc() -> Game
 {
     game := Game {}
 
-    game.engine = loki.init_engine(320,180, "ABC")
+    SCALE :: 4
+
+    game.engine = loki.init_engine(320 * SCALE,180 * SCALE, "ABC")
 
     game.mx = f32(rl.GetMouseX())
     game.my = f32(rl.GetMouseX())
@@ -51,11 +53,11 @@ draw :: proc(game: ^Game, color: rl.Color = rl.BLACK)
 
 any_key_pressed :: proc() -> bool
 {
-	any_key_down := 
-		rl.IsKeyDown(rl.KeyboardKey.W) ||
-		rl.IsKeyDown(rl.KeyboardKey.S) ||
-		rl.IsKeyDown(rl.KeyboardKey.A) ||
-		rl.IsKeyDown(rl.KeyboardKey.D)
+    any_key_down := 
+	rl.IsKeyDown(rl.KeyboardKey.W) ||
+	rl.IsKeyDown(rl.KeyboardKey.S) ||
+	rl.IsKeyDown(rl.KeyboardKey.A) ||
+	rl.IsKeyDown(rl.KeyboardKey.D)
 
 	return any_key_down
 }
